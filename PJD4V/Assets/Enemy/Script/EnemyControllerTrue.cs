@@ -11,6 +11,7 @@ public class EnemyControllerTrue : MonoBehaviour
     public float moveSpeed;
     public bool useTransform;
     public bool shouldFlip;
+    private Vector2 walkDirection;
 
     public GameObject p1;
     public GameObject p2;
@@ -18,13 +19,9 @@ public class EnemyControllerTrue : MonoBehaviour
     public GameObject LR;
 
     private int _currentEnergy;
-
     private Animator _animator;
-
     private bool _isAlive;
-
     private Collider2D _collider2D;
-    
     private AudioSource _audioSource;
     
     // Start is called before the first frame update
@@ -45,10 +42,7 @@ public class EnemyControllerTrue : MonoBehaviour
         if(_isAlive) Move();
     }
 
-    private void Move()
-    {
-        
-    }
+    
 
     public void TakeEnergy(int damage)
     {
@@ -83,4 +77,13 @@ public class EnemyControllerTrue : MonoBehaviour
             other.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
         }
     }
+
+    public void SetWalkDirection(Vector2 direction)
+    {
+        walkDirection = direction;
+    }
+    public void Move()
+         {
+             transform.Translate((Vector3)(walkDirection * Time.deltaTime));
+         }
 }
